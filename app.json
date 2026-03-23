@@ -1,0 +1,32 @@
+{
+  "expo": {
+    "name": "Stoic Companion",
+    "slug": "stoic-companion",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "dark",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#1A1510"
+    },
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.stoiccompanion.app"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#1A1510"
+      },
+      "package": "com.stoiccompanion.app"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "react-native-reanimated"
+    ]
+  }
+}
