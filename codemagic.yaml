@@ -12,11 +12,27 @@ workflows:
       - name: Generate native Android project
         script: npx expo prebuild --platform android --clean
 
-      - name: Build debug APK with bundled JS
+      - name: Generate self-signed keystore
+        script: |
+          keytool -genkey -v \
+            -keystore android/app/stoic.keystore \
+            -alias stoic \
+            -keyalg RSA \
+            -keysize 2048 \
+            -validity 10000 \
+            -storepass android123 \
+            -keypass android123 \
+            -dname "CN=Stoic Companion,O=Stoic,C=AZ"
+
+      - name: Build release APK (JS bundled automatically)
         script: |
           cd android
           chmod +x gradlew
-          ./gradlew assembleDebug -PbundleInDebug=true
+          ./gradlew assembleRelease \
+            -Pandroid.injected.signing.store.file=$(pwd)/app/stoic.keystore \
+            -Pandroid.injected.signing.store.password=android123 \
+            -Pandroid.injected.signing.key.alias=stoic \
+            -Pandroid.injected.signing.key.password=android123
 
     artifacts:
-      - android/app/build/outputs/apk/debug/app-debug.apk
+      - android/app/build/outputs/apk/release/app-release.apk
