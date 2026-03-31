@@ -43,4 +43,4 @@ export const quotes = [
 ];
 
 // All unique authors for filter pills
-export const authors = ['Hamısı', 'Epiktet', 'Markus', 'Seneka', 'Zenon'];
+export const authors = ['Hamısı', 'Epiktet', 'Markus Aurelius', 'Seneka', 'Zenon'];

@@ -54,9 +54,7 @@ export default function QuotesScreen() {
     }
 
     if (activeFilter !== 'Hamısı') {
-      filtered = filtered.filter((q) =>
-        q.author.toLowerCase().includes(activeFilter.toLowerCase())
-      );
+      filtered = filtered.filter((q) => q.author === activeFilter);
     }
 
     return filtered;

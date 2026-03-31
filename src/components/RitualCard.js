@@ -196,7 +196,7 @@ export default function RitualCard({
             <Text style={styles.prompt}>{prompt}</Text>
             {renderInputSection()}
 
-            <TouchableOpacity style={[styles.button, styles.buttonGradient]} onPress={onComplete} activeOpacity={0.8}>
+            <TouchableOpacity style={[styles.button, styles.buttonInner]} onPress={onComplete} activeOpacity={0.8}>
                 <Text style={styles.buttonText}>{buttonLabel}</Text>
             </TouchableOpacity>
           </>
@@ -320,7 +320,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     marginTop: 4,
   },
-  buttonGradient: {
+  buttonInner: {
     paddingVertical: 14,
     alignItems: 'center',
     backgroundColor: colors.gold,

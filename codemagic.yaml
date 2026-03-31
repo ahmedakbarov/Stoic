@@ -12,19 +12,11 @@ workflows:
       - name: Generate native Android project
         script: npx expo prebuild --platform android --clean
 
-      - name: Bundle JavaScript into APK assets
-        script: |
-          mkdir -p android/app/src/main/assets
-          npx expo export:embed \
-            --platform android \
-            --bundle-output android/app/src/main/assets/index.android.bundle \
-            --assets-dest android/app/src/main/res
-
-      - name: Build debug APK
+      - name: Build debug APK with bundled JS
         script: |
           cd android
           chmod +x gradlew
-          ./gradlew assembleDebug
+          ./gradlew assembleDebug -PbundleInDebug=true
 
     artifacts:
       - android/app/build/outputs/apk/debug/app-debug.apk
