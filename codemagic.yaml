@@ -12,10 +12,25 @@ workflows:
       - name: Generate native Android project
         script: npx expo prebuild --platform android --clean
 
-      - name: Generate self-signed keystore
+      - name: Bundle JS + generate keystore + build release APK
         script: |
+          set -e
+
+          # Step 1 — Pre-bundle JavaScript using Expo's bundler
+          mkdir -p android/app/src/main/assets
+          node node_modules/.bin/react-native bundle \
+            --platform android \
+            --dev false \
+            --entry-file index.js \
+            --bundle-output android/app/src/main/assets/index.android.bundle \
+            --assets-dest android/app/src/main/res \
+            --reset-cache
+          echo "✅ Bundle created: $(wc -c < android/app/src/main/assets/index.android.bundle) bytes"
+
+          # Step 2 — Generate self-signed keystore
+          KEYSTORE="$PWD/android/app/stoic.keystore"
           keytool -genkey -v \
-            -keystore android/app/stoic.keystore \
+            -keystore "$KEYSTORE" \
             -alias stoic \
             -keyalg RSA \
             -keysize 2048 \
@@ -23,16 +38,18 @@ workflows:
             -storepass android123 \
             -keypass android123 \
             -dname "CN=Stoic Companion,O=Stoic,C=AZ"
+          echo "✅ Keystore created at $KEYSTORE"
 
-      - name: Build release APK (JS bundled automatically)
-        script: |
+          # Step 3 — Build release APK (skip Gradle re-bundling since we bundled above)
           cd android
           chmod +x gradlew
           ./gradlew assembleRelease \
-            -Pandroid.injected.signing.store.file=$(pwd)/app/stoic.keystore \
+            -PbundleInRelease=false \
+            -Pandroid.injected.signing.store.file="$KEYSTORE" \
             -Pandroid.injected.signing.store.password=android123 \
             -Pandroid.injected.signing.key.alias=stoic \
             -Pandroid.injected.signing.key.password=android123
+          echo "✅ APK built successfully"
 
     artifacts:
       - android/app/build/outputs/apk/release/app-release.apk
