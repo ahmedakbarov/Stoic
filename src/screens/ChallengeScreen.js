@@ -335,7 +335,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.surface,
   },
   challengeCardCompleted: {
-    backgroundColor: '#2A2210',
+    backgroundColor: colors.surfaceLight,
   },
   challengeLabel: {
     fontSize: 10,

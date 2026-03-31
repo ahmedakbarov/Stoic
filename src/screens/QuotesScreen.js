@@ -232,7 +232,6 @@ const styles = StyleSheet.create({
   filterRow: {
     paddingHorizontal: 16,
     paddingVertical: 14,
-    gap: 8,
   },
   filterPill: {
     paddingHorizontal: 16,

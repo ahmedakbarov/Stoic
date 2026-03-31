@@ -237,7 +237,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.surface,
   },
   cardCompleted: {
-    backgroundColor: '#2A2210',
+    backgroundColor: colors.surfaceLight,
   },
   header: {
     flexDirection: 'row',
