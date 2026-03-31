@@ -18,7 +18,6 @@ import Animated, {
   withTiming,
   withSequence,
 } from 'react-native-reanimated';
-import { LinearGradient } from 'expo-linear-gradient';
 import { colors } from '../constants/colors';
 import OrnamentalDivider from '../components/OrnamentalDivider';
 import { challenges } from '../data/challenges';
@@ -178,14 +177,7 @@ export default function ChallengeScreen() {
           {/* Ripple overlay */}
           <Animated.View style={[styles.ripple, rippleStyle]} pointerEvents="none" />
 
-          <LinearGradient
-            colors={
-              isCompleted
-                ? ['rgba(201,168,76,0.15)', colors.surface]
-                : [colors.surface, '#3A3020']
-            }
-            style={styles.challengeCard}
-          >
+          <View style={[styles.challengeCard, isCompleted && styles.challengeCardCompleted]}>
             {/* Challenge index label */}
             <Text style={styles.challengeLabel}>⚡ STOIK TAPŞIRIQ</Text>
 
@@ -225,7 +217,7 @@ export default function ChallengeScreen() {
                 </Text>
               </TouchableOpacity>
             </Animated.View>
-          </LinearGradient>
+          </View>
         </View>
 
         {/* History section */}
@@ -339,6 +331,10 @@ const styles = StyleSheet.create({
     padding: 24,
     borderWidth: 1,
     borderColor: colors.stoneLight,
+    backgroundColor: colors.surface,
+  },
+  challengeCardCompleted: {
+    backgroundColor: '#2A2210',
   },
   challengeLabel: {
     fontSize: 10,

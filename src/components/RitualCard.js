@@ -17,7 +17,6 @@ import Animated, {
   withTiming,
   Easing,
 } from 'react-native-reanimated';
-import { LinearGradient } from 'expo-linear-gradient';
 import { colors } from '../constants/colors';
 import StreakBadge from './StreakBadge';
 
@@ -160,13 +159,11 @@ export default function RitualCard({
       {/* Animated glow border overlay */}
       <Animated.View style={[styles.glowBorder, glowStyle]} pointerEvents="none" />
 
-      <LinearGradient
-        colors={
-          completed
-            ? ['rgba(201,168,76,0.08)', colors.surface]
-            : [colors.surface, colors.surface]
-        }
-        style={styles.card}
+      <View
+        style={[
+          styles.card,
+          completed && styles.cardCompleted,
+        ]}
       >
         {/* Header */}
         <View style={styles.header}>
@@ -200,15 +197,8 @@ export default function RitualCard({
             <Text style={styles.prompt}>{prompt}</Text>
             {renderInputSection()}
 
-            <TouchableOpacity style={styles.button} onPress={onComplete} activeOpacity={0.8}>
-              <LinearGradient
-                colors={[colors.gold, colors.goldDim]}
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 0 }}
-                style={styles.buttonGradient}
-              >
+            <TouchableOpacity style={[styles.button, styles.buttonGradient]} onPress={onComplete} activeOpacity={0.8}>
                 <Text style={styles.buttonText}>{buttonLabel}</Text>
-              </LinearGradient>
             </TouchableOpacity>
           </>
         )}
@@ -217,7 +207,7 @@ export default function RitualCard({
         <View style={styles.streakRow}>
           <StreakBadge count={streak} />
         </View>
-      </LinearGradient>
+      </View>
     </View>
   );
 }
@@ -242,6 +232,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: colors.stoneLight,
     padding: 20,
+    backgroundColor: colors.surface,
+  },
+  cardCompleted: {
+    backgroundColor: '#2A2210',
   },
   header: {
     flexDirection: 'row',
@@ -327,6 +321,7 @@ const styles = StyleSheet.create({
   buttonGradient: {
     paddingVertical: 14,
     alignItems: 'center',
+    backgroundColor: colors.gold,
   },
   buttonText: {
     fontSize: 13,

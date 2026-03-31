@@ -11,7 +11,6 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useFocusEffect } from '@react-navigation/native';
-import { LinearGradient } from 'expo-linear-gradient';
 import { colors } from '../constants/colors';
 import OrnamentalDivider from '../components/OrnamentalDivider';
 import { quotes } from '../data/quotes';
@@ -110,10 +109,7 @@ export default function HomeScreen({ navigation }) {
         showsVerticalScrollIndicator={false}
       >
         {/* Header section */}
-        <LinearGradient
-          colors={['#2E2618', colors.background]}
-          style={styles.headerGradient}
-        >
+        <View style={styles.headerGradient}>
           <Text style={styles.greeting}>{greeting}</Text>
           <Text style={styles.dateText}>{dateString}</Text>
 
@@ -122,7 +118,7 @@ export default function HomeScreen({ navigation }) {
               <Text style={styles.streakText}>🔥 {streak} gün ardıcıl</Text>
             </View>
           )}
-        </LinearGradient>
+        </View>
 
         <OrnamentalDivider style={styles.topDivider} />
 
@@ -188,10 +184,7 @@ export default function HomeScreen({ navigation }) {
         </View>
 
         <View style={styles.challengeCard}>
-          <LinearGradient
-            colors={[colors.surface, '#3A3020']}
-            style={styles.challengeGradient}
-          >
+          <View style={styles.challengeGradient}>
             {challengeCompleted && (
               <View style={styles.challengeCompletedBadge}>
                 <Text style={styles.challengeCompletedText}>✓ Tamamlandı</Text>
@@ -214,7 +207,7 @@ export default function HomeScreen({ navigation }) {
                 {challengeCompleted ? 'Göstər' : 'Başla →'}
               </Text>
             </TouchableOpacity>
-          </LinearGradient>
+          </View>
         </View>
 
         {/* Bottom spacer */}
@@ -246,6 +239,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     paddingTop: 24,
     paddingBottom: 28,
+    backgroundColor: colors.surface,
   },
   greeting: {
     fontSize: 30,
@@ -385,6 +379,7 @@ const styles = StyleSheet.create({
   },
   challengeGradient: {
     padding: 20,
+    backgroundColor: colors.surface,
   },
   challengeCompletedBadge: {
     alignSelf: 'flex-start',
