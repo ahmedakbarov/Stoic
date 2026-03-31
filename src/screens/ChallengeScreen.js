@@ -31,6 +31,7 @@ import {
   getLastNDays,
   formatShortDate,
   isToday,
+  parseDateKey,
 } from '../utils/dateHelper';
 
 // Select today's challenge by day-of-year seed
@@ -70,7 +71,8 @@ export default function ChallengeScreen() {
 
       // Load last 7 days history
       const historyPromises = weekDays.map(async (dateKey) => {
-        const dayOfYear = getDayOfYear(new Date(dateKey.replace(/-/g, '/')));
+        const parsed = parseDateKey(dateKey);
+        const dayOfYear = getDayOfYear(parsed);
         const challenge = challenges[dayOfYear % challenges.length];
         const challengeData = await getChallenge(dateKey);
         return {
