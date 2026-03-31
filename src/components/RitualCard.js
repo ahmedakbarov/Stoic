@@ -1,12 +1,11 @@
 // RitualCard component — renders morning, midday, or evening ritual
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import {
   View,
   Text,
   TextInput,
   TouchableOpacity,
   StyleSheet,
-  Platform,
 } from 'react-native';
 import Animated, {
   useSharedValue,
@@ -221,7 +220,10 @@ const styles = StyleSheet.create({
   },
   glowBorder: {
     position: 'absolute',
-    inset: 0,
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
     borderRadius: 14,
     borderWidth: 1.5,
     borderColor: colors.gold,
