@@ -12,6 +12,16 @@ workflows:
       - name: Generate native Android project
         script: npx expo prebuild --platform android --clean --no-install
 
+      - name: Bundle JavaScript into APK
+        script: |
+          mkdir -p android/app/src/main/assets
+          npx react-native bundle \
+            --platform android \
+            --dev false \
+            --entry-file index.js \
+            --bundle-output android/app/src/main/assets/index.android.bundle \
+            --assets-dest android/app/src/main/res
+
       - name: Build debug APK
         script: |
           cd android
