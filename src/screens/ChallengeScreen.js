@@ -121,10 +121,10 @@ export default function ChallengeScreen() {
     );
 
     // Scale bounce on button
-    completedScale.value = withSpring(1.1, { damping: 8 });
-    setTimeout(() => {
-      completedScale.value = withSpring(1, { damping: 8 });
-    }, 300);
+    completedScale.value = withSequence(
+      withSpring(1.1, { damping: 8 }),
+      withSpring(1, { damping: 8 })
+    );
 
     // Refresh totals
     const total = await getTotalCompletedChallenges();

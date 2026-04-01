@@ -8,6 +8,7 @@ import Animated, {
   withSequence,
   withTiming,
   Easing,
+  cancelAnimation,
 } from 'react-native-reanimated';
 import { colors } from '../constants/colors';
 
@@ -28,6 +29,9 @@ export default function StreakBadge({ count }) {
     } else {
       scale.value = withTiming(1, { duration: 300 });
     }
+    return () => {
+      cancelAnimation(scale);
+    };
   }, [count]);
 
   const animatedStyle = useAnimatedStyle(() => ({

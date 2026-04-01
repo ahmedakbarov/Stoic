@@ -15,6 +15,7 @@ import Animated, {
   withSequence,
   withTiming,
   Easing,
+  cancelAnimation,
 } from 'react-native-reanimated';
 import { colors } from '../constants/colors';
 import StreakBadge from './StreakBadge';
@@ -68,6 +69,10 @@ export default function RitualCard({
       checkScale.value = withTiming(0, { duration: 200 });
       glowOpacity.value = withTiming(0, { duration: 300 });
     }
+    return () => {
+      cancelAnimation(glowOpacity);
+      cancelAnimation(checkScale);
+    };
   }, [completed]);
 
   const glowStyle = useAnimatedStyle(() => ({

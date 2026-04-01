@@ -12,22 +12,11 @@ workflows:
       - name: Generate native Android project
         script: npx expo prebuild --platform android --clean
 
-      - name: Bundle JS + generate keystore + build release APK
+      - name: Generate keystore + build release APK
         script: |
           set -e
 
-          # Step 1 — Pre-bundle JavaScript using Expo's bundler
-          mkdir -p android/app/src/main/assets
-          node node_modules/.bin/react-native bundle \
-            --platform android \
-            --dev false \
-            --entry-file index.js \
-            --bundle-output android/app/src/main/assets/index.android.bundle \
-            --assets-dest android/app/src/main/res \
-            --reset-cache
-          echo "✅ Bundle created: $(wc -c < android/app/src/main/assets/index.android.bundle) bytes"
-
-          # Step 2 — Generate self-signed keystore
+          # Step 1 — Generate self-signed keystore
           KEYSTORE="$PWD/android/app/stoic.keystore"
           keytool -genkey -v \
             -keystore "$KEYSTORE" \
@@ -40,11 +29,10 @@ workflows:
             -dname "CN=Stoic Companion,O=Stoic,C=AZ"
           echo "✅ Keystore created at $KEYSTORE"
 
-          # Step 3 — Build release APK (skip Gradle re-bundling since we bundled above)
+          # Step 2 — Build release APK (Gradle bundles JS automatically)
           cd android
           chmod +x gradlew
           ./gradlew assembleRelease \
-            -PbundleInRelease=false \
             -Pandroid.injected.signing.store.file="$KEYSTORE" \
             -Pandroid.injected.signing.store.password=android123 \
             -Pandroid.injected.signing.key.alias=stoic \
