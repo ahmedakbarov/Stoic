@@ -1,6 +1,6 @@
-// Metro config for Expo SDK 51
-const { getDefaultConfig } = require('expo/metro-config');
+// Metro config — must extend @react-native/metro-config from RN 0.73+
+const { getDefaultConfig, mergeConfig } = require('@react-native/metro-config');
 
-const config = getDefaultConfig(__dirname);
+const config = {};
 
-module.exports = config;
+module.exports = mergeConfig(getDefaultConfig(__dirname), config);
