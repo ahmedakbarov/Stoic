@@ -1,5 +1,5 @@
 // JournalScreen — morning/evening journal tabs with history and auto-save
-import React, { useState, useCallback, useRef, useEffect } from 'react';
+import React, { useState, useCallback, useRef } from 'react';
 import {
   View,
   Text,

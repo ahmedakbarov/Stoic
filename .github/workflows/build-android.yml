@@ -37,4 +37,4 @@ jobs:
         run: |
           echo "✅ Build complete!"
           echo "📱 Open https://expo.dev to download your APK"
-          echo "   Go to: Your account → Projects → stoic-companion → Builds"
+          echo "   Go to: Your account → Projects → stoic → Builds"
